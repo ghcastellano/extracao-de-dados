@@ -63,6 +63,20 @@ Para uma coleta completa, utilizo o modo `ambos` com `--mogi-full`. As saídas d
 | `certidoes_venais_importadas.csv` | Relação das certidões venais importadas e seu vínculo territorial. |
 | `manifest.json` | Contagens, fontes processadas e escopo da execução. |
 
+## Extrator de Produtos Náuticos
+
+O repositório também inclui o `extrator_produtos_nauticos.py`, que coleta catálogos públicos de lojas náuticas brasileiras (SKU, descrição, fotos, marca, preço e disponibilidade) com curadoria voltada a tripulantes em escala curta no Porto de Santos. A extração usa o JSON-LD `schema.org/Product` publicado pelas próprias lojas, respeita robots.txt e usa o mesmo modelo de checkpoint retomável em SQLite.
+
+```bash
+# Coleta com o filtro padrão de itens para tripulante e download de fotos
+python extrator_produtos_nauticos.py coletar --saida data/produtos-nauticos
+
+# Regenera JSON/CSV a partir do checkpoint
+python extrator_produtos_nauticos.py export --saida data/produtos-nauticos
+```
+
+Saídas: `produtos_nauticos.json`, `produtos_nauticos.csv`, `fotos/<loja>/<sku>_<produto>/img_NN.jpg` e `manifest.json`. As fontes verificadas e os limites de uso estão em [FONTES_PRODUTOS_NAUTICOS.md](docs/FONTES_PRODUTOS_NAUTICOS.md).
+
 ## Limites e segurança
 
 Eu não trato CPF, CNPJ de pessoa física, nome de proprietário, boleto, código de barras, pagamentos ou posição financeira. A importação de valor venal rejeita arquivos que tragam esses campos. A documentação das fontes e dos limites de cada cidade está em [FONTES_E_LIMITES.md](docs/FONTES_E_LIMITES.md).

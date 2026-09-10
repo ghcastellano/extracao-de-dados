@@ -805,6 +805,7 @@ class MogiPublicExtractor:
             "fonte": "Portal de Dados Abertos - Cadastro Imobiliário",
             "exercicio": safe_text(get("exercicio")) or str(year),
             "tipo": safe_text(get("tipo", "classe_fiscal")),
+            "data_transacao": safe_text(get("data_instr", "dt_lancamento")),
             "uso_imovel": safe_text(get("uso_imovel")),
             "inscricao_imobiliaria": inscricao,
             "numero_imovel_quadra": safe_text(get("nro_imov_qda", "nro_local")),
@@ -1229,7 +1230,7 @@ def export_csv(store: CheckpointStore, output: Path) -> int:
     """Gera uma visão tabular dos atributos; a geometria permanece no arquivo GeoJSON."""
     fields = [
         "id", "fonte_id", "cidade", "fonte", "camada", "gid", "tipo", "descricao", "bairro",
-        "loteamento", "lei_corredor", "restricao", "exercicio", "uso_imovel", "inscricao_imobiliaria",
+        "loteamento", "lei_corredor", "restricao", "exercicio", "data_transacao", "uso_imovel", "inscricao_imobiliaria",
         "numero_imovel_quadra", "complemento", "logradouro", "area_terreno_m2", "area_construcao_m2",
         "valor_venal", "moeda", "quadra_chave", "precisao_geometria", "metodo_georreferenciamento",
         "valor_venal_certidao", "exercicio_certidao_venal", "moeda_certidao_venal",
